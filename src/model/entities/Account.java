@@ -1,5 +1,7 @@
 package model.entities;
 
+import model.Exception.SaqueException;
+
 public class Account {
 
     private Integer numero;
@@ -56,5 +58,15 @@ public class Account {
     public void saque(Double quantia) {
         balanco -= quantia;
     }
+
+    private void validarSaque(double quantia)  {
+        if (quantia > getLimiteSaq()) {
+            throw new SaqueException("O limite de saque foi atingido");
+        }
+        if (quantia > getBalanco()) {
+            throw new SaqueException("Saldo insuficiente");
+        }
+    }
+
 
 }
